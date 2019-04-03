@@ -1,0 +1,23 @@
+{
+  "author": "",
+  "dependencies": {},
+  "description": "Loader for Node native extensions",
+  "devDependencies": {},
+  "directories": {},
+  "homepage": "https://github.com/smt116/node-native-loader#readme",
+  "keywords": [
+    "electron",
+    "loader",
+    "native",
+    "node",
+    "webpack"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "sm-node-loader",
+  "optionalDependencies": {},
+  "publish_time": 1528984372858,
+  "readme": "ERROR: No README data found!",
+  "scripts": {},
+  "version": "2.1.0"
+}

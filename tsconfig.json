@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "outDir": "./tsdist/",
+        "sourceMap": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "target": "es6",
+        "experimentalDecorators": true,
+        "strictNullChecks": true,
+        "baseUrl": "./",
+        "paths": {
+            "types/*": ["src/types/*"]
+        },
+        "lib": [
+            "dom",
+            "es2015",
+            "es2016",
+            "es2017"
+        ],
+        "allowJs": true,
+        "removeComments": false,
+        "noImplicitAny": false,// 是否禁止隐式any
+        "resolveJsonModule": true
+    },
+    "include": [
+        "./src/"
+    ]
+}
