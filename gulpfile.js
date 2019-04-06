@@ -33,7 +33,7 @@ const envList = ["prod", "dev", "test"];
 const appEnvFileName = "app_env.config"
 const buildDir = path.join(__dirname, './build')
 const iconPath = path.join(__dirname, './src/icon.ico')
-const configjson = require('./urlConfig.js');
+// const configjson = require('./urlConfig.js');
 /** 整体构建变量集合，也用于替换封装安装包脚本（.iss文件）变量 */
 var app = createApp("prod");
 // console.log(app);
@@ -236,10 +236,10 @@ envList.forEach(env => {
             fsExtra.removeSync(devconfigSrcPath);
             fsExtra.removeSync(devconfigSrcPathUrl);
 
-            // 根据环境写入接口地址配置文件
-            var extConfigMap = configjson.extConfigMap;
-            // 写入配置对象到文件
-            fsExtra.writeFileSync(configSrcPath, jsonFormat(extConfigMap[env]));
+            // // 根据环境写入接口地址配置文件
+            // var extConfigMap = configjson.extConfigMap;
+            // // 写入配置对象到文件
+            // fsExtra.writeFileSync(configSrcPath, jsonFormat(extConfigMap[env]));
 
             // 创建环境标识文件
             if (app.MyAppEnv !== "prod") {
@@ -301,8 +301,18 @@ envList.forEach(env => {
             });
     });
 
+    // // 完整构建任务
+    // gulp.task("build:" + env, cb => runSequence("dist:" + env, "pack:" + env, "setup:" + env, err => {
+    //     if (err) {
+    //         gutil.log(`[full-log]`, "完整构建过程中出现错误而中止！请检查输出日志！");
+    //     } else {
+    //         gutil.log(`[full-log]`, "完整构建全部完成！");
+    //     }
+    //     cb();
+    // }));
+
     // 完整构建任务
-    gulp.task("build:" + env, cb => runSequence("dist:" + env, "pack:" + env, "setup:" + env, err => {
+    gulp.task("build:" + env, cb => runSequence("dist:" + env, "pack:" + env, err => {
         if (err) {
             gutil.log(`[full-log]`, "完整构建过程中出现错误而中止！请检查输出日志！");
         } else {
