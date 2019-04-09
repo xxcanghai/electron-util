@@ -95,7 +95,7 @@ export default class WebCamera {
 		this.video.pause();
 	}
 
-	public static async getDevices(): Promise<MediaDeviceInfo[]> {
+	public static async getMediaDevices(): Promise<MediaDeviceInfo[]> {
 		return await navigator.mediaDevices.enumerateDevices();
 	}
 

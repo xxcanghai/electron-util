@@ -55,20 +55,21 @@
         <div>
           <el-button type="primary" @click="initWebCamera()">开启摄像头</el-button>
           <el-button type="primary" @click="closeWebCamera()">停止摄像头</el-button>
-          <el-button type="primary" @click="getDevices()">获取设备列表</el-button>
+          <el-button type="primary" @click="getMediaDevices()">获取媒体设备列表</el-button>
         </div>
-        <el-table :data="deviceList" border style="width: 100%">
+        <el-table size="small" :data="deviceList" border style="width: 100%">
           <el-table-column sortable prop="kind" label="kind" width="100"></el-table-column>
           <el-table-column sortable prop="label" label="label" width="200"></el-table-column>
           <el-table-column sortable prop="deviceId" label="deviceId"></el-table-column>
         </el-table>
+        <div>
+          <el-button type="primary" @click="getUvcDevices()">获取UVC设备列表</el-button>
+        </div>
       </el-tab-pane>
     </el-tabs>
   </div>
 
 </template>
-
-
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
@@ -78,6 +79,7 @@ import * as electron from "electron";
 import * as system from "../js/system";
 import * as wifi from "../js/wifi";
 import WebCamera from "../js/WebCamera";
+import UVCControl from "../js/UVCControl";
 const jsonFormat = require("json-format");
 
 @Component({})
@@ -199,8 +201,9 @@ export default class Main extends Vue {
   wifiConnect(network: wifi.NetworkItem) {
     // var pwd = prompt(`请输入要连接的 ${network.ssid} 的密码：`) || "";
     this.$prompt(`请输入要连接的 ${network.ssid} 的密码：`, "提示")
-      .then(({ value }) => {
-        wifi.connect({ ssid: network.ssid, password: value }, err => {
+      .then((data:any) => {
+        var pwd=data.value;
+        wifi.connect({ ssid: network.ssid, password: pwd }, err => {
           console.log("[wifi.connect]", err);
           if (err) {
             return alert(err);
@@ -252,10 +255,14 @@ export default class Main extends Vue {
     this.webcam.stop();
   }
 
-  async getDevices() {
-    this.deviceList = (await WebCamera.getDevices()).filter(
+  async getMediaDevices() {
+    this.deviceList = (await WebCamera.getMediaDevices()).filter(
       d => d.kind == "audioinput" || d.kind == "videoinput"
     );
+  }
+
+  getUvcDevices(){
+    UVCControl.showDeviceList();
   }
 }
 </script>

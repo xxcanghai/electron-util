@@ -35,8 +35,8 @@ function createMainWindow() {
      */
     mainWindow = new electron.BrowserWindow({
         // 主界面大小
-        // height: 580,
-        // width: 900,
+        height: 580,
+        width: 900,
         // useContentSize: true,
         resizable: true,
         // frame: false,
