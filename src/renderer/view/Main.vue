@@ -1,5 +1,5 @@
 <template>
-  <div :page-name="name">
+  <div>
     <el-tabs type="card" v-model="tabActive">
       <el-tab-pane label="系统控制" name="system">
         <el-button type="primary" @click="system.shutdown(30)">关机(等待30秒)</el-button>
@@ -20,6 +20,9 @@
         <el-button type="primary" @click="auidoSetVolume(1)">设置音量值1</el-button>
         <br><br>
 
+        <el-button type="primary" @click="setAutoRun()">设置开启自启动</el-button>
+        <el-button type="primary" @click="cancelAutoRun()">取消开启自启动</el-button>
+        <el-button type="primary" @click="getIsAutoRunClick()">获取当前是否为开启自启动</el-button>
       </el-tab-pane>
       <el-tab-pane label="WIFI管理" name="wifi">
         <el-button type="primary" @click="getWifiList()">获取wifi列表</el-button>
@@ -79,7 +82,7 @@ const jsonFormat = require("json-format");
 
 @Component({})
 export default class Main extends Vue {
-  name = "Main";
+  system = system;
   tabActive = "wifi";
   volume = -1;
   wifiList: wifi.NetworkItem[] = [];
@@ -88,14 +91,14 @@ export default class Main extends Vue {
   canvas!: HTMLCanvasElement;
   deviceList: MediaDeviceInfo[] = [];
 
-  system = system;
-
   async mounted() {
     console.log("wifi", wifi);
     this.volume = await system.auidoGetVolume();
     this.getWifiList();
     this.canvas = <HTMLCanvasElement>this.$refs["webCameraCanvas"];
   }
+
+  // =======================系统控制===========================
 
   async auidoGetMuted() {
     alert(await system.auidoGetMuted());
@@ -125,6 +128,36 @@ export default class Main extends Vue {
   auidoVolumeMinus() {
     this.auidoSetVolume(this.volume - 10);
   }
+
+  setAutoRun() {
+    var res = system.setAutoRun();
+    alert(res ? "设置成功" : "设置失败");
+  }
+
+  async cancelAutoRun() {
+    if (await this.getIsAutoRun()) {
+      system
+        .cancelAutoRun()
+        .then(r => {
+          alert("取消成功");
+        })
+        .catch(err => {
+          alert("取消失败" + err);
+        });
+    } else {
+      alert("当前未设置开启自启动");
+    }
+  }
+
+  async getIsAutoRun() {
+    return await system.getIsAutoRun();
+  }
+
+  async getIsAutoRunClick() {
+    alert(await this.getIsAutoRun());
+  }
+
+  // =======================WIFI控制===========================
 
   getWifiList() {
     wifi.scan((err, networks) => {
@@ -189,6 +222,10 @@ export default class Main extends Vue {
       this.getCurrentConnection();
     });
   }
+
+  // =======================UDP===========================
+
+  // =======================UVC控制===========================
 
   initWebCamera() {
     this.webcam = new WebCamera({

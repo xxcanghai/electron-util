@@ -77,6 +77,10 @@ app.on('activate', () => {
     }
 })
 
+app.on("quit", (event, exitCode) => {
+    app.exit();
+})
+
 
 //点击任务栏右键关闭 事件触发顺序：window-all-closed》before-quit》will-quit》quit
 //执行app.quit事件触发顺序：before-quit》window-all-closed》before-quit》will-quit》quit

@@ -28,10 +28,12 @@
     "moment": "^2.22.2",
     "node-wifi": "^2.0.5",
     "request": "^2.88.0",
+    "uvc-control": "^1.0.2",
     "vue": "^2.5.2",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "windows-shortcuts": "^0.1.6"
   },
   "devDependencies": {
     "@types/clipboardy": "^1.1.0",
@@ -44,6 +46,7 @@
     "@types/qs": "^6.5.1",
     "@types/request": "^2.48.1",
     "@types/socket.io-client": "^1.4.32",
+    "@types/usb": "^1.5.1",
     "ajv": "^6.5.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
