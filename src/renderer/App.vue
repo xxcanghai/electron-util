@@ -39,6 +39,5 @@ html {
   // background-image: url("~@/assets/img/main/bg.png");
   background-color: white;
   height: 100%;
-  overflow: hidden;
 }
 </style>

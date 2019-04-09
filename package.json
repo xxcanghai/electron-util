@@ -26,6 +26,7 @@
     "lodash": "^4.17.11",
     "loudness": "^0.3.0",
     "moment": "^2.22.2",
+    "node-wifi": "^2.0.5",
     "request": "^2.88.0",
     "vue": "^2.5.2",
     "vue-electron": "^1.0.6",
